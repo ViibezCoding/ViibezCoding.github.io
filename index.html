@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ViibezCoding · Free browser games</title>
+<meta name="description" content="Free games you play in your browser. No downloads, no accounts, no ads.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ViibezCoding">
+<meta property="og:description" content="Free games you play in your browser. No downloads, no accounts, no ads.">
+<meta property="og:image" content="https://viibezcoding.github.io/assets/full-court-deck.png">
+<meta property="og:url" content="https://viibezcoding.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A0E1A">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  :root {
+    --bg: #0A0E1A;
+    --bg2: #0F1527;
+    --panel: #151C31;
+    --panel2: #1B2440;
+    --line: #283253;
+    --ink: #EEF1F8;
+    --muted: #8E98B5;
+    --orange: #F26A1B;
+    --orange-hi: #FF8540;
+    --gold: #E8B33C;
+    --green: #3FCB7E;
+    --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+    --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", Consolas, ui-monospace, monospace;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 600px at 50% -10%, #1a2550 0%, transparent 60%), var(--bg);
+    color: var(--ink);
+    font: 16px/1.55 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 900; line-height: 1; margin: 0; letter-spacing: .01em; text-transform: uppercase; }
+  p { margin: 0; }
+  .wrap { width: min(1160px, 100% - 32px); margin-inline: auto; }
+  .muted { color: var(--muted); }
+  .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 16px; z-index: 10; background: var(--orange); color: #111; padding: 8px 12px; border-radius: 8px; }
+  :focus-visible { outline: 2px solid var(--orange-hi); outline-offset: 3px; }
+
+  /* Header */
+  .site-head { position: sticky; top: 0; z-index: 5; background: rgba(10,14,26,.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .site-head .wrap { display: flex; align-items: center; gap: 24px; height: 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 900 24px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+  .logo img { width: 28px; height: 28px; }
+  .logo span { color: var(--orange); }
+  .nav { display: flex; gap: 20px; margin-left: auto; }
+  .nav a { text-decoration: none; color: var(--muted); font-weight: 600; }
+  .nav a:hover { color: var(--ink); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px; font: 700 20px/1 var(--display); text-transform: uppercase; letter-spacing: .03em; text-decoration: none; border: 1px solid var(--line); background: var(--panel); transition: background .15s, border-color .15s, transform .15s; }
+  .btn:hover { border-color: var(--muted); transform: translateY(-1px); }
+  .btn svg { width: 16px; height: 16px; }
+  .btn-primary { background: var(--orange); border-color: var(--orange); color: #14100c; }
+  .btn-primary:hover { background: var(--orange-hi); border-color: var(--orange-hi); }
+
+  .chip { display: inline-block; font: 500 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; border: 1px solid currentColor; }
+  .chip.dev { color: var(--gold); }
+  .chip.new { color: var(--green); }
+
+  /* Hero */
+  .hero { padding: 64px 0 40px; }
+  .hero-intro { max-width: 720px; margin-bottom: 40px; }
+  .hero-intro h1 { font-size: clamp(48px, 9vw, 96px); }
+  .hero-intro h1 span { color: var(--orange); }
+  .hero-intro p { font-size: 19px; margin-top: 16px; }
+
+  .spotlight { display: grid; grid-template-columns: 1.6fr 1fr; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 80px -30px rgba(0,0,0,.7); }
+  .spotlight-art { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; }
+  .spotlight-art img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+  .spotlight-art:hover img { transform: scale(1.03); }
+  .spotlight-body { padding: 32px; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  .spotlight-body .meta { display: flex; gap: 8px; }
+  .spotlight-body h2 { font-size: clamp(40px, 5vw, 56px); }
+  .spotlight-body .genre { font: 500 13px/1.4 var(--mono); color: var(--orange); }
+  .spotlight-body .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+  /* Bands */
+  .band { padding: 72px 0; border-top: 1px solid var(--line); }
+  .band-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+  .band-head h2 { font-size: clamp(36px, 5vw, 52px); }
+  .proof { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; }
+  .proof li { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; color: var(--muted); font-size: 14px; }
+  .proof b { color: var(--ink); font: 900 22px/1 var(--display); margin-right: 4px; }
+
+  /* Game grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .game-card { display: flex; flex-direction: column; text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: border-color .15s, transform .15s; }
+  .game-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+  .game-card img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+  .game-card .body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .game-card .title { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .game-card h3 { font-size: 30px; }
+  .game-card .stat { margin-top: auto; padding-top: 6px; font: 500 12px/1.4 var(--mono); color: var(--muted); }
+  .game-card.soon { border-style: dashed; background: transparent; align-items: center; justify-content: center; text-align: center; min-height: 260px; padding: 24px; }
+  .game-card.soon:hover { transform: none; border-color: var(--line); }
+  .game-card img.soon-ball { width: 56px; height: 56px; aspect-ratio: 1; margin-bottom: 14px; opacity: .55; }
+  .game-card.soon h3 { font-size: 26px; color: var(--muted); }
+  .note { margin-top: 20px; font-size: 14px; }
+
+  /* Features */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .feature { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  .feature .icon { font-size: 28px; margin-bottom: 10px; }
+  .feature h3 { font-size: 26px; margin-bottom: 8px; }
+
+  /* Footer */
+  .site-foot { border-top: 1px solid var(--line); padding: 32px 0 48px; font-size: 14px; color: var(--muted); }
+  .site-foot .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+  .site-foot nav { display: flex; gap: 18px; }
+  .site-foot a { text-decoration: none; }
+  .site-foot a:hover { color: var(--ink); }
+
+  @media (max-width: 860px) {
+    .spotlight { grid-template-columns: 1fr; }
+    .spotlight-body { padding: 24px; }
+    .features { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .hero { padding-top: 40px; }
+    .nav { gap: 14px; }
+    .logo { font-size: 20px; }
+    .grid { grid-template-columns: 1fr; }
+    .spotlight-body .actions .btn { flex: 1; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="ViibezCoding home"><img src="assets/favicon.svg" alt="" width="28" height="28"><b>Viibez<span>Coding</span></b></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#games">Games</a>
+      <a href="https://github.com/ViibezCoding">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-intro">
+        <p class="eyebrow">Free browser games</p>
+        <h1>Click. Play. <span>No download.</span></h1>
+        <p class="muted">Games you can play right here in your browser. No installs, no accounts and no ads, and all the code is on GitHub.</p>
+      </div>
+
+      <article class="spotlight">
+        <a class="spotlight-art" href="https://viibezcoding.github.io/full-court-deck/" aria-label="Play Full Court Deck">
+          <img src="assets/full-court-deck.png" alt="Full Court Deck title screen with two basketball players under arena spotlights" width="1280" height="720">
+        </a>
+        <div class="spotlight-body">
+          <div class="meta"><span class="chip new">New</span><span class="chip dev">In development</span></div>
+          <h2>Full Court Deck</h2>
+          <p class="genre">Basketball roguelike deck builder</p>
+          <p class="muted">Pick a star and play one NBA-style season with a deck of cards. Win games, rip open card packs, chase numbered serials and 1 of 1s, and take it all the way to the Finals.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://viibezcoding.github.io/full-court-deck/"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2l10 6-10 6z"/></svg>Play free</a>
+            <a class="btn" href="https://github.com/ViibezCoding/full-court-deck">View code</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="band" id="games">
+    <div class="wrap">
+      <div class="band-head">
+        <div><p class="eyebrow">The lineup</p><h2>Every game, free in your browser</h2></div>
+        <ul class="proof">
+          <li><b>1</b> playable now</li>
+          <li><b>1</b> public repo</li>
+          <li><b>0</b> ads, accounts or downloads</li>
+        </ul>
+      </div>
+      <div class="grid">
+        <a class="game-card" href="https://viibezcoding.github.io/full-court-deck/">
+          <img src="assets/full-court-deck.png" alt="Full Court Deck title screen" width="1280" height="720" loading="lazy">
+          <div class="body">
+            <div class="title"><h3>Full Court Deck</h3><span class="chip dev">In dev</span></div>
+            <p class="muted">A season-long run of card battles starring parody basketball legends. Build your deck, open packs and win the title.</p>
+            <p class="stat">2 stars · 42 cards · 12 pieces of memorabilia · Nov to June</p>
+          </div>
+        </a>
+        <div class="game-card soon" aria-label="Next game coming soon">
+          <img class="soon-ball" src="assets/favicon.svg" alt="" width="56" height="56">
+          <h3>Next game</h3>
+          <p class="muted">In the works. Check back soon.</p>
+        </div>
+      </div>
+      <p class="muted note">Best on a computer with a keyboard and mouse.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="band-head"><div><p class="eyebrow">How it works</p><h2>Just hit play</h2></div></div>
+      <div class="features">
+        <div class="feature"><div class="icon" aria-hidden="true">🎮</div><h3>Free to play</h3><p class="muted">Every game is free. No ads, no sign-ups and nothing to buy.</p></div>
+        <div class="feature"><div class="icon" aria-hidden="true">💾</div><h3>Saves itself</h3><p class="muted">Your progress is saved in your browser. Close the tab and pick up where you left off.</p></div>
+        <div class="feature"><div class="icon" aria-hidden="true">🔓</div><h3>Open code</h3><p class="muted">Every game's code is public on GitHub, so you can see exactly how it works.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>© <span id="year">2026</span> ViibezCoding</p>
+    <nav aria-label="Footer">
+      <a href="#games">Games</a>
+      <a href="https://github.com/ViibezCoding">GitHub</a>
+    </nav>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
