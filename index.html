@@ -119,7 +119,16 @@
   .band-head h2 { font-size: clamp(30px, 4.2vw, 44px); }
   .proof { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0; margin: 0; }
   .proof li { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; color: var(--muted); font-size: 14px; }
-  .proof b { color: var(--teal); font: 800 20px/1 var(--display); margin-right: 4px; }
+  .proof b { color: var(--ink); font: 800 20px/1 var(--display); margin-right: 4px; }
+  /* Development stages, in order. Each stage has one color, used by its counter and its chips. */
+  .st-development { --stage: var(--muted); }
+  .st-alpha { --stage: var(--pink); }
+  .st-beta { --stage: var(--sunset); }
+  .st-released { --stage: var(--teal); }
+  .stages li { display: flex; align-items: center; gap: 6px; }
+  .stages i { width: 8px; height: 8px; border-radius: 50%; background: var(--stage); box-shadow: 0 0 8px var(--stage); margin-right: 2px; }
+  .stages b { color: var(--stage); }
+  .chip.stage { color: var(--stage); }
 
   /* Game grid */
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
@@ -192,7 +201,7 @@
           <img src="assets/full-court-deck.png" alt="Full Court Deck title screen with two basketball players under arena spotlights" width="1280" height="720">
         </a>
         <div class="spotlight-body">
-          <div class="meta"><span class="chip new">New</span><span class="chip dev">In development</span></div>
+          <div class="meta"><span class="chip new">New</span><span class="chip stage st-alpha">Alpha</span></div>
           <h2>Full Court Deck</h2>
           <p class="genre">Basketball roguelike deck builder</p>
           <p class="muted">Pick a star and play one NBA-style season with a deck of cards. Win games, rip open card packs, chase numbered serials and 1 of 1s, and take it all the way to the Finals.</p>
@@ -209,17 +218,18 @@
     <div class="wrap">
       <div class="band-head">
         <div><p class="eyebrow">The lineup</p><h2>Every game, free in your browser</h2></div>
-        <ul class="proof">
-          <li><b>1</b> playable now</li>
-          <li><b>1</b> public repo</li>
-          <li><b>0</b> ads, accounts or downloads</li>
+        <ul class="proof stages" aria-label="Games by development stage">
+          <li class="st-development"><i aria-hidden="true"></i><b>0</b> Development</li>
+          <li class="st-alpha"><i aria-hidden="true"></i><b>1</b> Alpha</li>
+          <li class="st-beta"><i aria-hidden="true"></i><b>0</b> Beta</li>
+          <li class="st-released"><i aria-hidden="true"></i><b>0</b> Released</li>
         </ul>
       </div>
       <div class="grid">
         <a class="game-card" href="https://viibezcoding.github.io/full-court-deck/">
           <img src="assets/full-court-deck.png" alt="Full Court Deck title screen" width="1280" height="720" loading="lazy">
           <div class="body">
-            <div class="title"><h3>Full Court Deck</h3><span class="chip dev">In dev</span></div>
+            <div class="title"><h3>Full Court Deck</h3><span class="chip stage st-alpha">Alpha</span></div>
             <p class="muted">A season-long run of card battles starring parody basketball legends. Build your deck, open packs and win the title.</p>
             <p class="stat">2 stars · 42 cards · 12 pieces of memorabilia · Nov to June</p>
           </div>
